@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-
+import { authFetch, getAccessToken } from "../utils/auth";
 const CartContext = createContext();
 
 export function CartProvider({ children }) {
@@ -8,10 +8,10 @@ export function CartProvider({ children }) {
   const [cartItems, setCartItems] = useState([]); 
   const [total, setTotal] = useState(0);
 
-  // Fetch Cart from BE
+
   const fetchCart = async () => {
     try {
-      const res = await fetch(`${BASEURL}/api/cart/`);
+      const res = await authFetch(`${BASEURL}/api/cart/`);
       const data = await res.json();
       
       
@@ -28,7 +28,7 @@ export function CartProvider({ children }) {
   // Add Product to Cart
   const addToCart = async (productId) => {
     try {
-      await fetch(`${BASEURL}/api/cart/add/`, {
+      await authFetch(`${BASEURL}/api/cart/add/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -44,7 +44,7 @@ export function CartProvider({ children }) {
   // Remove Product from Cart
   const removeFromCart = async (itemId) => {
     try {
-      await fetch(`${BASEURL}/api/cart/remove/`, {
+      await authFetch(`${BASEURL}/api/cart/remove/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -64,7 +64,7 @@ export function CartProvider({ children }) {
       return;
     }
     try {
-      await fetch(`${BASEURL}/api/cart/update/`, {
+      await authFetch(`${BASEURL}/api/cart/update/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

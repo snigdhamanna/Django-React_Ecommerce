@@ -8,7 +8,9 @@ import Checkout from './pages/Checkout';
 
 import Navbar from './components/Navbar';
 
-
+import PrivateRouter from './components/PrivateRouter';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
 
 function App(){
   return (
@@ -19,7 +21,12 @@ function App(){
         <Route path="/product/:id" element={<ProductDetails/>}></Route>
         <Route path="/cart" element={<CartPage/>}></Route>
         <Route path="/cart" element={<CartPage/>}></Route>
-        <Route path="/checkout" element={<Checkout/>}></Route>
+        <Route element={<PrivateRouter/>}>
+          <Route path="/checkout" element={<Checkout/>}></Route>
+        </Route>
+        <Route path="/login" element={<Login/>}></Route>
+        <Route path="/signup" element={<Signup/>}></Route>
+        
 
       </Routes>
 
